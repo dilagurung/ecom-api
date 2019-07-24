@@ -54,6 +54,55 @@ public class ECommerceRestController
 
 
 
+
+
+    @Autowired
+    LoginService loginService;
+
+
+    @RequestMapping(value="/login", method = RequestMethod.POST)
+    public ResponseEntity<Login> saveLogin(@RequestBody  Login login)
+    {
+
+        loginService.save(login);
+        return  new ResponseEntity<Login>(login,HttpStatus.CREATED);
+
+    }
+
+
+
+
+
+
+    @RequestMapping(value="/login",method =RequestMethod.GET)
+    public ResponseEntity<List<Login>> findAllLogins()
+    {
+        List<Login> loginList= loginService.findByAll();
+
+        return  new ResponseEntity<List<Login>>(loginList,HttpStatus.FOUND);
+    }
+
+
+
+
+    @RequestMapping(value="/login-validate",method =RequestMethod.POST)
+    public ResponseEntity<Login> validate(@RequestBody Login login)
+    {
+        Login login1= loginService.findById(login.getId());
+
+        return  new ResponseEntity<Login>(login1,HttpStatus.FOUND);
+    }
+
+
+
+
+
+
+
+
+
+
+
     @RequestMapping(value="/order", method = RequestMethod.POST)
     public ResponseEntity<Order> saveOrder(@RequestBody  Order order)
     {
